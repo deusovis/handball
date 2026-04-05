@@ -86,7 +86,7 @@
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(230, 132, 40, 0.5);
         }
-        #form-status {
+        #form-message {
             margin-top: 10px;
             font-weight: 700;
             font-size: 1rem;
@@ -108,50 +108,50 @@
         <h1>Under <span>Construction</span></h1>
         <p>The ultimate destination for premium handball strategies, tips, and predictions is currently <span class="pulse-text">warming up</span>.</p>
         
-        <form id="waitlist-form" class="notify-form" action="https://formspree.io/f/xykbbvgb" method="POST">
+        <form id="waitlist-form" class="notify-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
             <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
             <button type="submit" id="submit-btn" class="action-btn">Notify Me When Live</button>
-            <div id="form-status"></div>
+            <div id="form-message"></div>
         </form>
     </div>
 
-<script>
-        const form = document.getElementById("waitlist-form");
-        const button = document.getElementById("submit-btn");
-        const statusMessage = document.getElementById("form-status"); // Name changed here!
+    <script>
+        const myForm = document.getElementById("waitlist-form");
+        const myButton = document.getElementById("submit-btn");
+        const myMessage = document.getElementById("form-message");
 
-        form.addEventListener("submit", function(event) {
+        myForm.addEventListener("submit", function(event) {
             event.preventDefault(); 
-            button.innerText = "Sending...";
+            myButton.innerText = "Sending...";
             
-            const data = new FormData(form);
+            const formData = new FormData(myForm);
 
-            fetch(form.action, {
-                method: form.method,
-                body: data,
+            fetch(myForm.action, {
+                method: myForm.method,
+                body: formData,
                 headers: {
                     'Accept': 'application/json'
                 }
             })
             .then(response => {
                 if (response.ok) {
-                    statusMessage.innerHTML = "Success! You are on the list.";
-                    statusMessage.style.display = "block"; // This will now work perfectly
-                    statusMessage.style.color = "#E68428"; 
-                    button.innerText = "Notify Me When Live";
-                    form.reset();
+                    myMessage.innerHTML = "Success! You are on the list.";
+                    myMessage.style.display = "block";
+                    myMessage.style.color = "#E68428"; 
+                    myButton.innerText = "Notify Me When Live";
+                    myForm.reset();
                 } else {
-                    statusMessage.innerHTML = "Oops! Something went wrong.";
-                    statusMessage.style.display = "block";
-                    statusMessage.style.color = "red";
-                    button.innerText = "Notify Me When Live";
+                    myMessage.innerHTML = "Oops! Something went wrong.";
+                    myMessage.style.display = "block";
+                    myMessage.style.color = "red";
+                    myButton.innerText = "Notify Me When Live";
                 }
             })
             .catch(error => {
-                statusMessage.innerHTML = "Error: Please test on your live GitHub link, not a local file.";
-                statusMessage.style.display = "block";
-                statusMessage.style.color = "red";
-                button.innerText = "Notify Me When Live";
+                myMessage.innerHTML = "Error: Please test on your live GitHub link.";
+                myMessage.style.display = "block";
+                myMessage.style.color = "red";
+                myButton.innerText = "Notify Me When Live";
             });
         });
     </script>
