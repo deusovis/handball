@@ -1,0 +1,27 @@
+name: Save Email to File
+
+# This tells the Action to listen for an external API request
+on:
+  repository_dispatch:
+    types: [new_email_submission]
+
+jobs:
+  save_email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Append Email to File
+        # This takes the email passed from the form and adds it to emails.csv
+        run: |
+          echo "${{ github.event.client_payload.email }},$(date)" >> emails.csv
+
+      - name: Commit and Push Changes
+        # This saves the updated file back to your repository
+        run: |
+          git config user.name "GitHub Action Bot"
+          git config user.email "action@github.com"
+          git add emails.csv
+          git commit -m "Added new email via website form"
+          git push
