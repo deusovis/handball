@@ -6,12 +6,7 @@
     <title>HandballTips.com | Under Construction</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body, html {
             height: 100%;
             font-family: 'Montserrat', sans-serif;
@@ -20,7 +15,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .card {
             background: #ffffff;
             padding: 4rem 3rem;
@@ -30,16 +24,8 @@
             max-width: 600px;
             width: 90%;
             animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(30px);
         }
-
-        .logo {
-            max-width: 280px;
-            height: auto;
-            margin-bottom: 2rem;
-        }
-
+        .logo { max-width: 280px; height: auto; margin-bottom: 2rem; }
         h1 {
             color: #1C3B70;
             font-weight: 900;
@@ -48,24 +34,18 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
-        h1 span {
-            color: #E68428;
-        }
-
+        h1 span { color: #E68428; }
         p {
             font-size: 1.1rem;
             line-height: 1.6;
             color: #555;
             margin-bottom: 2rem;
         }
-
         .pulse-text {
             color: #E68428;
             font-weight: 700;
             animation: pulse 2s infinite;
         }
-
         .notify-form {
             display: flex;
             flex-direction: column;
@@ -73,7 +53,6 @@
             align-items: center;
             margin-top: 10px;
         }
-
         .email-input {
             width: 100%;
             max-width: 320px;
@@ -85,11 +64,7 @@
             outline: none;
             transition: border-color 0.3s ease;
         }
-
-        .email-input:focus {
-            border-color: #1C3B70;
-        }
-
+        .email-input:focus { border-color: #1C3B70; }
         .action-btn {
             background-color: #E68428;
             color: white;
@@ -106,30 +81,19 @@
             width: 100%;
             max-width: 320px;
         }
-
         .action-btn:hover {
             background-color: #cf731f;
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(230, 132, 40, 0.5);
         }
-        
         #form-status {
             margin-top: 10px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 1rem;
             display: none;
         }
-
-        @keyframes slideUpFade {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
+        @keyframes slideUpFade { to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
         @media (max-width: 480px) {
             .card { padding: 3rem 1.5rem; }
             h1 { font-size: 1.8rem; }
@@ -140,18 +104,56 @@
 <body>
 
     <div class="card">
-        <img src="logo.jpg" alt="HandballTips.com Logo" class="logo">
-        
+        <img src="Gemini_Generated_Image_m3mmlsm3mmlsm3mm.jpg" alt="HandballTips.com Logo" class="logo">
         <h1>Under <span>Construction</span></h1>
+        <p>The ultimate destination for premium handball strategies, tips, and predictions is currently <span class="pulse-text">warming up</span>.</p>
         
-        <p>The ultimate destination for premium predictions is currently <span class="pulse-text">warming up</span>.</p>
-        
-<form class="notify-form" action="https://formspree.io/f/xykbbvgb" method="POST">
-    <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
-    <button type="submit" class="action-btn">Notify Me When Live</button>
-</form>
+        <form id="waitlist-form" class="notify-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
+            <button type="submit" id="submit-btn" class="action-btn">Notify Me When Live</button>
+            <div id="form-status"></div>
+        </form>
     </div>
 
-  
+    <script>
+        var form = document.getElementById("waitlist-form");
+        var button = document.getElementById("submit-btn");
+        var status = document.getElementById("form-status");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); // This strictly prevents the redirect
+            button.innerText = "Sending...";
+            
+            var data = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    status.innerHTML = "Success! You are on the list.";
+                    status.style.display = "block";
+                    status.style.color = "#E68428"; 
+                    button.innerText = "Notify Me When Live";
+                    form.reset();
+                } else {
+                    status.innerHTML = "Oops! Something went wrong.";
+                    status.style.display = "block";
+                    status.style.color = "red";
+                    button.innerText = "Notify Me When Live";
+                }
+            })
+            .catch(error => {
+                status.innerHTML = "Error: Please test on your live GitHub link, not a local file.";
+                status.style.display = "block";
+                status.style.color = "red";
+                button.innerText = "Notify Me When Live";
+            });
+        });
+    </script>
 </body>
 </html>
