@@ -146,65 +146,12 @@
         
         <p>The ultimate destination for premium predictions is currently <span class="pulse-text">warming up</span>.</p>
         
-        <form id="waitlist-form" class="notify-form" action="https://formspree.io/f/xykbbvgb" method="POST">
-            <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
-            <button type="submit" id="submit-btn" class="action-btn">Notify Me When Live</button>
-            <div id="form-status"></div>
-        </form>
+<form class="notify-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <input type="email" name="email" class="email-input" placeholder="Enter your email address" required>
+    <button type="submit" class="action-btn">Notify Me When Live</button>
+</form>
     </div>
 
-    <script>
-        var form = document.getElementById("waitlist-form");
-        var button = document.getElementById("submit-btn");
-        var status = document.getElementById("form-status");
-
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
-            button.innerText = "Sending...";
-            status.style.display = "none";
-            
-            var data = new FormData(event.target);
-            
-            fetch(event.target.action, {
-                method: form.method,
-                body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    status.style.display = "block";
-                    status.innerHTML = "Success! You are on the list.";
-                    status.style.color = "#1C3B70";
-                    button.innerText = "Notify Me When Live";
-                    form.reset();
-                } else {
-                    response.json().then(data => {
-                        status.style.display = "block";
-                        status.style.color = "red";
-                        if (data && data.errors) {
-                            status.innerHTML = data.errors.map(error => error.message).join(", ");
-                        } else {
-                            status.innerHTML = "Oops! There was a problem submitting your form.";
-                        }
-                        button.innerText = "Notify Me When Live";
-                    }).catch(err => {
-                        status.style.display = "block";
-                        status.style.color = "red";
-                        status.innerHTML = "Error: Please check if your Formspree ID is correct.";
-                        button.innerText = "Notify Me When Live";
-                    });
-                }
-            }).catch(error => {
-                console.error("Fetch Error:", error);
-                status.style.display = "block";
-                status.style.color = "red";
-                status.innerHTML = "Network error: Make sure you are testing this on a live server or GitHub Pages.";
-                button.innerText = "Notify Me When Live";
-            });
-        }
-        form.addEventListener("submit", handleSubmit);
-    </script>
+  
 </body>
 </html>
